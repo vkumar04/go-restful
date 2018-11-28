@@ -16,9 +16,10 @@ type Book struct {
 	Author *Author `json:"author"`
 }
 
+//author model/struct
 type Author struct {
-	FirstName string `json:"firstname"`
-	Lastname  string `json:"firstname"`
+	Firstname string `json:"firstname"`
+	Lastname  string `json:"lastname"`
 }
 
 ///init books
@@ -56,8 +57,8 @@ func main() {
 	router := mux.NewRouter()
 
 	//mock data
-	books = append(books, Book{ID: "1", Isbn: "448743", Title: "Book One", Author: &Author{FirstName: "John", Lastname: "Doe"}})
-	books = append(books, Book{ID: "2", Isbn: "583273", Title: "Book Two", Author: &Author{FirstName: "Test", Lastname: "Testerson"}})
+	books = append(books, Book{ID: "1", Isbn: "448743", Title: "Book One", Author: &Author{Firstname: "John", Lastname: "Doe"}})
+	books = append(books, Book{ID: "2", Isbn: "583273", Title: "Book Two", Author: &Author{Firstname: "Test", Lastname: "Testerson"}})
 
 	// route handler
 	router.HandleFunc("/api/books", getBooks).Methods("GET")
