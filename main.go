@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"log"
 	"net/http"
 
@@ -20,9 +21,13 @@ type Author struct {
 	Lastname  string `json:"firstname"`
 }
 
+///init books
+var books []Book
+
 //get all books
 func getBooks(w http.ResponseWriter, r *http.Request) {
-
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(books)
 }
 
 //get single book
@@ -49,6 +54,10 @@ func deleteBook(w http.ResponseWriter, r *http.Request) {
 func main() {
 	//init router
 	router := mux.NewRouter()
+
+	//mock data
+	books = append(books, Book{ID: "1", Isbn: "448743", Title: "Book One", Author: &Author{FirstName: "John", Lastname: "Doe"}})
+	books = append(books, Book{ID: "2", Isbn: "583273", Title: "Book Two", Author: &Author{FirstName: "Test", Lastname: "Testerson"}})
 
 	// route handler
 	router.HandleFunc("/api/books", getBooks).Methods("GET")
